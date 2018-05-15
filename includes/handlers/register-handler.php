@@ -2,6 +2,7 @@
 
 function sanitizeFormPassword($inputText){
 	$inputText = strip_tags($inputText);
+	return $inputText;
 }
 
 function sanitizeFormUsername($inputText){
@@ -35,6 +36,7 @@ if (isset($_POST['registerButton'])) {
 	$wasSuccessful = $account->register($username,$firstname,$lastname,$em2,$em, $pw,$pw2);
 
 	if($wasSuccessful){
+		$_SESSION['userLoggedIn'] = $username; 
 		header("Location:index.php");
 	}
 }
