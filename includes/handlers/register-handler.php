@@ -32,7 +32,11 @@ if (isset($_POST['registerButton'])) {
 	$pw = sanitizeFormPassword($_POST['password']);
 	$pw2 = sanitizeFormPassword($_POST['password2']);
 
-	$account->register($username,$firstname,$lastname,$em2,$em, $pw,$pw2);
+	$wasSuccessful = $account->register($username,$firstname,$lastname,$em2,$em, $pw,$pw2);
+
+	if($wasSuccessful){
+		header("Location:index.php");
+	}
 }
 
 ?>

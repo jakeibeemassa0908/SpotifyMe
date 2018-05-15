@@ -12,6 +12,14 @@
 			$this->validateLastName($lastname);
 			$this->validateEmails($em, $em2);
 			$this->validatePasswords($pw, $pw2);
+
+			if(empty($this->errorArray)){
+				//Insert into db
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
 		private function validateUsername($un){
 			if(strlen($un) > 25 || strlen($un) < 5){
@@ -57,7 +65,7 @@
 			}
 
 			if(preg_match('/[^A-Za-z0-9]/',  $pw)){
-				array_push(this->errorArray, "Your password can only contain letter and numbers");
+				array_push($this->errorArray, "Your password can only contain letter and numbers");
 				return;
 			}
 
