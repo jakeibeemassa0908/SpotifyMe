@@ -13,10 +13,13 @@ include ("includes/config.php");
 <html>
 <head>
 	<title>Welcome to SpotifyMe</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
 
-Hello from Earth!
+	<div id="nowPlayingBarContainer">
+
+	</div>
 </body>
 </html>
