@@ -45,12 +45,15 @@ include ("includes/config.php");
 							<img src="assets/images/icons/repeat.png" alt="Repeat">
 						</button>
 					</div> 
-				</div>
-				<div class ="playbackBar">
-					<span class="progressTime current">0.00</span>
-					<div class="progressBar">
+					<div class ="playbackBar">
+						<span class="progressTime current">0.00</span>
+						<div class="progressBar">
+							<div class="progressBarBg"> 
+								<div class="progress"></div>
+							</div>
+						</div>
+						<span class="progressTime remaining">0.00</span>
 					</div>
-					<span class="progressTime remaining">0.00</span>
 				</div>
 			</div>
 			<div id="nowPlayingRight">
