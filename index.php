@@ -21,7 +21,11 @@ include ("includes/config.php");
 	<div id="nowPlayingBarContainer">
 		<div id="nowPlayingBar">
 			<div id="nowPlayingLeft">
-				
+				<div class="content">
+					<span class="albumLink">
+						<img class="albumArtwork" src="https://lh3.googleusercontent.com/gdg509nVE8Ri5-P2SDeoEpzvZ1XRl5hmY26b5Q-Kv68tmr0kN6cVsX6Q7Hl0bHzVNQ=s360" alt="">
+					</span>
+				</div>
 			</div>
 			<div id="nowPlayingCenter">
 				<div class="content playerControls">
