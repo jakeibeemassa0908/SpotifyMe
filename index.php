@@ -25,6 +25,10 @@ include ("includes/config.php");
 					<span class="albumLink">
 						<img class="albumArtwork" src="https://lh3.googleusercontent.com/gdg509nVE8Ri5-P2SDeoEpzvZ1XRl5hmY26b5Q-Kv68tmr0kN6cVsX6Q7Hl0bHzVNQ=s360" alt="">
 					</span>
+					<div class ="track info">
+						<span class="trackName">Jesus is Lord</span>
+						<span class="artistName">Jacques Massa</span> 
+					</div>
 				</div>
 			</div>
 			<div id="nowPlayingCenter">
