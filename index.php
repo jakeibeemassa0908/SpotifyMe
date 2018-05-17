@@ -25,9 +25,9 @@ include ("includes/config.php");
 					<span class="albumLink">
 						<img class="albumArtwork" src="https://lh3.googleusercontent.com/gdg509nVE8Ri5-P2SDeoEpzvZ1XRl5hmY26b5Q-Kv68tmr0kN6cVsX6Q7Hl0bHzVNQ=s360" alt="">
 					</span>
-					<div class ="track info">
+					<div class ="trackInfo">
 						<span class="trackName">Jesus is Lord</span>
-						<span class="artistName">Jacques Massa</span> 
+						<span class="artistName">Jacques Massa </span> 
 					</div>
 				</div>
 			</div>
@@ -65,7 +65,16 @@ include ("includes/config.php");
 				</div>
 			</div>
 			<div id="nowPlayingRight">
-
+				<div class="volumeBar">
+					<button class="controlButton volume" title="Volume Button">
+						<img src="assets/images/icons/volume.png" alt="Volume">
+					</button>
+						<div class="progressBar">
+							<div class="progressBarBg"> 
+								<div class="progress"></div>
+							</div>
+						</div>
+				</div>
 			</div>
 		</div>
 	</div>
