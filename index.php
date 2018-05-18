@@ -1,32 +1,21 @@
-<?php 
-include ("includes/config.php");
+<?php include("includes/header.php")?>
+	<h1 class="pageHeadingBig">You Might Also Like</h1>
+	<div class="gridViewContainer">
+		<?php 
+			$albumQuery = mysqli_query($con,"SELECT * FROM albums ORDER BY RAND() LIMIT 5");
+			while($row = mysqli_fetch_array($albumQuery)){
 
-//session_destroy(); manual logout
+				echo" 
+				<div class='gridViewItem'>
+					<img src='". $row['artworkPath']. "' alt=''>
 
-	if (isset($_SESSION['userLoggedIn'])){
-		$userLoggedIn = $_SESSION['userLoggedIn'];
-	} else{
-		header("Location:register.php");
-	}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Welcome to SpotifyMe</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-</head>
+					<div class='gridViewInfo'>"
+					.$row['title']."
+					 </div>
+				</div>";
 
-<body>
-	<div id="main container">
-		<div id="topContainer">
-			<?php include ("includes/navBarContainer.php");?>
-			<div id="mainViewContainer">
-				<div id="mainContent">
-					
-				</div>
-			</div>
-		</div>
-		<?php include ("includes/nowPlayingBar.php");?>
+
+			}
+		?>
 	</div>
-</body>
-</html>
+<?php include("includes/footer.php")?>
