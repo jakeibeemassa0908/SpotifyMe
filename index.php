@@ -5,13 +5,15 @@
 			$albumQuery = mysqli_query($con,"SELECT * FROM albums ORDER BY RAND() LIMIT 5");
 			while($row = mysqli_fetch_array($albumQuery)){
 
-				echo" 
+				echo " 
 				<div class='gridViewItem'>
-					<img src='". $row['artworkPath']. "' alt=''>
+					<a href='album.php?id=".$row['id']."'>
+						<img src='". $row['artworkPath']. "' alt=''>
 
-					<div class='gridViewInfo'>"
-					.$row['title']."
-					 </div>
+						<div class='gridViewInfo'>"
+							.$row['title']."
+						</div>
+					</a>
 				</div>";
 
 
