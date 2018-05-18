@@ -2,13 +2,17 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #fff;
 }
-
+body{
+    background-color: #181818;
+    font-size: 14px;
+    min-width: 720px;
+}
+ 
 html, body {
 	padding: 0;
 	margin: 0;
-	height: 100%;
+    height: 100%;
 }
-
 #nowPlayingBarContainer {
 	width: 100%;
     background-color: #282828;
@@ -186,7 +190,7 @@ html, body {
 
   .navItemLink:hover{
     color: #fff;
-    
+
 }
 
   .icon{
@@ -194,4 +198,14 @@ html, body {
       right: 0;
       top: 6px;
       width: 25px;
+  }
+
+  #mainViewContainer{
+      margin-left:220px;
+      padding-botton: 90px;
+      width: calc(100%-220px); 
+  }
+
+  #mainContent{
+      padding: 0 20px;
   }
