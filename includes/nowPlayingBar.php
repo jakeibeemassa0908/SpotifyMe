@@ -19,9 +19,17 @@
         setTrack(currentPlaylist[0],currentPlaylist,false);
     });
 
+    //set track to be played
     function setTrack(trackId,newPlaylist,play){
-            audioElement.setTrack('assets/music/heal.mp3');
-            if(play){
+        //ajax call to php to retrieve song
+        $.post("includes/handlers/ajax/getSongJson.php",{ songId:trackId},function(data){
+
+            var track = JSON.parse(data);
+
+            audioElement.setTrack(track.path);
+            audioElement.play();
+        });
+        if(play){
             audioElement.play();
         }
     }
