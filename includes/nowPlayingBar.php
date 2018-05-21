@@ -23,8 +23,20 @@
     function setTrack(trackId,newPlaylist,play){
         //ajax call to php to retrieve song
         $.post("includes/handlers/ajax/getSongJson.php",{ songId:trackId},function(data){
-
+            //parse the retrieved json data into a Javascript object
             var track = JSON.parse(data);
+
+            $(".trackName span").text(track.title);
+
+            $.post("includes/handlers/ajax/getArtistJson.php",{ artistId:track.artist},function(data){
+                var artist = JSON.parse(data);
+                $(".artistName span").text(artist.name);
+            });
+
+            $.post("includes/handlers/ajax/getAlbumJson.php",{ albumId:track.album},function(data){
+                var album = JSON.parse(data);
+                $(".albumLink img").attr("src",album.artworkPath);
+            });
 
             audioElement.setTrack(track.path);
             audioElement.play();
@@ -47,11 +59,15 @@
             <div id="nowPlayingLeft">
                 <div class="content">
                     <span class="albumLink">
-                        <img class="albumArtwork" src="https://lh3.googleusercontent.com/gdg509nVE8Ri5-P2SDeoEpzvZ1XRl5hmY26b5Q-Kv68tmr0kN6cVsX6Q7Hl0bHzVNQ=s360" alt="">
+                        <img class="albumArtwork" src="" alt="">
                     </span>
                     <div class ="trackInfo">
-                        <span class="trackName">Jesus is Lord</span>
-                        <span class="artistName">Jacques Massa </span> 
+                        <span class="trackName">
+                            <span></span>
+                        </span>
+                        <span class="artistName">
+                            <span></span>
+                        </span> 
                     </div>
                 </div>
             </div>
