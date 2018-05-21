@@ -23,7 +23,14 @@
             audioElement.setTrack('assets/music/heal.mp3');
             if(play){
             audioElement.play();
+        }
     }
+
+    function play(){
+        audioElement.play();
+    }
+    function pause(){
+        audioElement.pause();
     }
 </script>
 
@@ -49,10 +56,10 @@
                         <button class ="controlButton previous" title="Previous Button">
                             <img src="assets/images/icons/previous.png" alt="Previous">
                         </button>
-                        <button class ="controlButton play" title="Play Button">
+                        <button class ="controlButton play" title="Play Button" onclick="play()">
                             <img src="assets/images/icons/play.png" alt="Play">
                         </button>
-                        <button class ="controlButton pause" title="Pause Button" style ="display:none">
+                        <button class ="controlButton pause" title="Pause Button"  onclick="pause()" style ="display:none">
                             <img src="assets/images/icons/pause.png" alt="Pause">
                         </button>
                         <button class ="controlButton next" title="Next Button">
