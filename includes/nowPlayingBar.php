@@ -38,15 +38,20 @@
                 $(".albumLink img").attr("src",album.artworkPath);
             });
 
-            audioElement.setTrack(track.path);
-            audioElement.play();
+            audioElement.setTrack(track);
+            //play();
         });
         if(play){
-            audioElement.play();
+           play();
         }
     }
 
     function play(){
+        if(audioElement.audio.currentTime == 0){
+            $.post("includes/handlers/ajax/updatePlays.php",{songId:audioElement.currentlyPlaying.id});
+        }else{
+            console.log("Don't Update Time");
+        }
         audioElement.play();
     }
     function pause(){
