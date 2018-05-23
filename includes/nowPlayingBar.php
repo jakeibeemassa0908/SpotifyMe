@@ -15,9 +15,9 @@
 
     $(document).ready(function(){
         //create the playlist when the page loads
-        currentPlaylist = <?php echo $jsonArray?>;
+        var newPlaylist  = <?php echo $jsonArray?>;
         audioElement = new Audio();
-        setTrack(currentPlaylist[0],currentPlaylist,false);
+        setTrack(newPlaylist[0],newPlaylist,false);
 
         //set volume to maximum or prefered setting when the page loads
         updateVolumeProgressBar(audioElement.audio);
@@ -83,7 +83,7 @@
 
     //Determine what is the next song to play
     function nextSong(){
-        if(repeat == true){
+        if(repeat){
             audioElement.setTime(0);
             playSong();
             return;
@@ -93,13 +93,34 @@
         }else{
             currentIndex++;
         }
-
-        var trackToPlay = currentPlaylist[currentIndex];
+        //get the next track from the shuffle playlist if shuffle is on otherwise use currentplaylist
+        var trackToPlay = shuffle? shufflePlaylist[currentIndex]: currentPlaylist[currentIndex];
         setTrack(trackToPlay,currentPlaylist,true);
+    }
+
+    function previousSong(){
+        //repeat the song if it has been playing for more than 3 seconds or if it is the first in the playlist
+        if(audioElement.audio.currentTime >=3 || currentIndex ==0){
+            audioElement.setTime(0);
+        }else{
+            currentIndex--;
+            setTrack(currentPlaylist[currentIndex],currentPlaylist,true);
+        }
     }
 
     //set track to be played
     function setTrack(trackId,newPlaylist,play){
+        if (newPlaylist != currentPlaylist){
+            currentPlaylist = newPlaylist;
+            shufflePlaylist = currentPlaylist.slice();
+            shuffleArray(shufflePlaylist);
+        }
+        
+        if(shuffle){
+            currentIndex = shufflePlaylist.indexOf(trackId);
+        }else{
+            currentIndex = currentPlaylist.indexOf(trackId);
+        }
         currentIndex = currentPlaylist.indexOf(trackId)
         pauseSong();
         //ajax call to php to retrieve song
@@ -137,6 +158,49 @@
     function pauseSong(){
         audioElement.pause();
     }
+
+    function setRepeat(){
+        repeat = !repeat;
+        var imageName = repeat ? "repeat-active.png":"repeat.png";
+        $(".controlButton.repeat img").attr("src","assets/images/icons/"+imageName);
+    }
+
+    function setMute(){
+        audioElement.audio.muted = !audioElement.audio.muted;
+        var imageName = audioElement.audio.muted ? "mute.png":"volume.png";
+        $(".controlButton.volume img").attr("src","assets/images/icons/"+imageName);
+    }
+
+    function setShuffle(){
+        shuffle = !shuffle;
+        var imageName = shuffle? "shuffle-active.png":"shuffle.png";
+        $(".controlButton.shuffle img").attr("src","assets/images/icons/"+imageName);
+
+        if(shuffle){
+            //randomnize playlist
+            shuffleArray(shufflePlaylist);
+            //set the current index to be the same song that has been currently playing to avoid replaying the same song due to shuffle
+            currentIndex = shufflePlaylist.indexOf(audioElement.currentlyPlaying.id);
+        }else{
+            //go back to regular playlist
+            currentIndex = currentPlaylist.indexOf(audioElement.currentlyPlaying.id);
+        }
+    }
+
+    /**
+     * Shuffles array in place.
+     * @param {Array} a items An array containing the items.
+     */
+    function shuffleArray(a) {
+        var j, x, i;
+        for (i = a.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            x = a[i];
+            a[i] = a[j];
+            a[j] = x;
+        }
+        return a;
+    }
 </script>
 
 <div id="nowPlayingBarContainer">
@@ -159,10 +223,10 @@
             <div id="nowPlayingCenter">
                 <div class="content playerControls">
                     <div class="buttons">
-                        <button class ="controlButton shuffle" title="Shuffle Button">
+                        <button class ="controlButton shuffle" title="Shuffle Button" onclick="setShuffle()">
                             <img src="assets/images/icons/shuffle.png" alt="Shuffle">
                         </button>
-                        <button class ="controlButton previous" title="Previous Button">
+                        <button class ="controlButton previous" title="Previous Button" onclick ="previousSong()">
                             <img src="assets/images/icons/previous.png" alt="Previous">
                         </button>
                         <button class ="controlButton play" title="Play Button" onclick="playSong()">
@@ -174,7 +238,7 @@
                         <button class ="controlButton next" title="Next Button" onclick = "nextSong()">
                             <img src="assets/images/icons/next.png" alt="Next">
                         </button>
-                        <button class ="controlButton repeat" title="Repeat Button">
+                        <button class ="controlButton repeat" title="Repeat Button" onclick= "setRepeat()">
                             <img src="assets/images/icons/repeat.png" alt="Repeat">
                         </button>
                     </div> 
@@ -191,7 +255,7 @@
             </div>
             <div id="nowPlayingRight">
                 <div class="volumeBar">
-                    <button class="controlButton volume" title="Volume Button">
+                    <button class="controlButton volume" title="Volume Button" onclick = "setMute()">
                         <img src="assets/images/icons/volume.png" alt="Volume">
                     </button>
                         <div class="progressBar">
