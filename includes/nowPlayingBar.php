@@ -14,10 +14,19 @@
 <script>
 
     $(document).ready(function(){
+        //create the playlist when the page loads
         currentPlaylist = <?php echo $jsonArray?>;
         audioElement = new Audio();
         setTrack(currentPlaylist[0],currentPlaylist,false);
+
+        //set volume to maximum or prefered setting when the page loads
         updateVolumeProgressBar(audioElement.audio);
+
+        //set the container to be unselectable
+        $('#nowPlayingBarContainer').on("mousedown touchstart mouse move touchmove",function(e){
+            //prevent default behavior when the event mentioned in the function happen
+            e.preventDefault();
+        });
 
 
         $(".playbackBar .progressBar").mousedown(function(){
