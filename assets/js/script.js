@@ -20,22 +20,37 @@ function updateTimeProgressBar(audio){
     $(".playbackBar .progress").css("width",progress + "%");
 }
 
+function updateVolumeProgressBar(audio){
+    var volume = audio.volume * 100;
+    $(".volumeBar .progress").css("width",volume + "%");
+}
+
 function Audio(){
 
     this.currentlyPlaying;
     this.audio = document.createElement('audio');
 
     this.audio.addEventListener("canplay",function(){
-        //this refers to the object that the event was called on
+        //this refers to the object that the event was called on, which is the audio element
         var duration = formatTime(this.duration);
         $(".progressTime.remaining").text(duration);
     });
 
+    //Event listener for time change in the audio due to movement in the progress bar
     this.audio.addEventListener("timeupdate",function(){
         if(this.duration){
             updateTimeProgressBar(this);
         }
     });
+
+    //Event listener for the audio volume change due to movement in the volume progress bar
+
+    this.audio.addEventListener("volumechange",function(){
+        //'this' refers to the object that the event was called on, which is the audio element
+        updateVolumeProgressBar(this);
+    });
+
+
 
     this.setTrack = function (track) {
         this.currentlyPlaying = track;

@@ -17,11 +17,12 @@
         currentPlaylist = <?php echo $jsonArray?>;
         audioElement = new Audio();
         setTrack(currentPlaylist[0],currentPlaylist,false);
+        updateVolumeProgressBar(audioElement.audio);
 
 
         $(".playbackBar .progressBar").mousedown(function(){
             mouseDown = true;
-        })
+        });
 
         $(".playbackBar .progressBar").mousemove(function(e){
             if(mouseDown){
@@ -33,6 +34,31 @@
         $(".playbackBar .progressBar").mouseup(function(e){
             //set time song depending on position of mouse
             timeFromOffset(e,this);
+        });
+
+// volume bar controler
+        $(".volumeBar .progressBar").mousedown(function(){
+            mouseDown = true;
+        });
+
+        $(".volumeBar .progressBar").mousemove(function(e){
+            if(mouseDown){
+                //set volume of the song depending on position of mouse
+                //percentage is between 0 and 1
+                var percentage = e.offsetX /$(this).width();
+                if(percentage >=0 && percentage <=1){
+                    audioElement.audio.volume = percentage;
+                    }
+            }
+        });
+
+        $(".volumeBar .progressBar").mouseup(function(e){
+                //set volume of the song depending on position of mouse
+                //percentage is between 0 and 1
+                var percentage = e.offsetX /$(this).width();
+                if(percentage >=0 && percentage <=1){
+                    audioElement.audio.volume = percentage;
+                    }
         });
 
         $(document).mouseup(function(){
