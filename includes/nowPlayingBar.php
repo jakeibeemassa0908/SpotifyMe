@@ -81,8 +81,27 @@
         audioElement.setTime(seconds);
     }
 
+    //Determine what is the next song to play
+    function nextSong(){
+        if(repeat == true){
+            audioElement.setTime(0);
+            playSong();
+            return;
+        }
+        if(currentIndex == currentPlaylist.length-1){
+            currentIndex =0;
+        }else{
+            currentIndex++;
+        }
+
+        var trackToPlay = currentPlaylist[currentIndex];
+        setTrack(trackToPlay,currentPlaylist,true);
+    }
+
     //set track to be played
     function setTrack(trackId,newPlaylist,play){
+        currentIndex = currentPlaylist.indexOf(trackId)
+        pauseSong();
         //ajax call to php to retrieve song
         $.post("includes/handlers/ajax/getSongJson.php",{ songId:trackId},function(data){
             //parse the retrieved json data into a Javascript object
@@ -101,22 +120,21 @@
             });
 
             audioElement.setTrack(track);
-            //play();
+            playSong();
         });
         if(play){
-           play();
+           playSong();
         }
     }
 
-    function play(){
+    function playSong(){
+        //update number of plays for the song
         if(audioElement.audio.currentTime == 0){
             $.post("includes/handlers/ajax/updatePlays.php",{songId:audioElement.currentlyPlaying.id});
-        }else{
-            console.log("Don't Update Time");
         }
         audioElement.play();
     }
-    function pause(){
+    function pauseSong(){
         audioElement.pause();
     }
 </script>
@@ -147,13 +165,13 @@
                         <button class ="controlButton previous" title="Previous Button">
                             <img src="assets/images/icons/previous.png" alt="Previous">
                         </button>
-                        <button class ="controlButton play" title="Play Button" onclick="play()">
+                        <button class ="controlButton play" title="Play Button" onclick="playSong()">
                             <img src="assets/images/icons/play.png" alt="Play">
                         </button>
-                        <button class ="controlButton pause" title="Pause Button"  onclick="pause()" style ="display:none">
+                        <button class ="controlButton pause" title="Pause Button"  onclick="pauseSong()" style ="display:none">
                             <img src="assets/images/icons/pause.png" alt="Pause">
                         </button>
-                        <button class ="controlButton next" title="Next Button">
+                        <button class ="controlButton next" title="Next Button" onclick = "nextSong()">
                             <img src="assets/images/icons/next.png" alt="Next">
                         </button>
                         <button class ="controlButton repeat" title="Repeat Button">
