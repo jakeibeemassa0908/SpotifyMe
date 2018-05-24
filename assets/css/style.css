@@ -379,3 +379,15 @@ html, body {
         border-bottom: 1px solid #939393;
         margin-bottom: 20px;
     }
+
+    .tracklistContainer h2{
+        text-align: center;
+    }
+
+    .gridViewContainer h2{
+        text-align: center;
+    }
+
+    [role = "link"]{
+        cursor: pointer;
+    }
