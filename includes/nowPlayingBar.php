@@ -141,10 +141,10 @@
             });
 
             audioElement.setTrack(track);
+            if(play){
+                playSong();
+            }
         });
-        if(play){
-           playSong();
-        }
     }
 
     function playSong(){

@@ -15,6 +15,10 @@ function openPage(url){
     //changes uknown characters to their URL equivalent
     var encodeUrl = encodeURI(url+"&userLoggedIn=" + userLoggedIn);
     $("#mainContent").load(encodeUrl);
+    //automatically scroll to the top when page is changed
+    $("body").scrollTop(0);
+    //put the url into the address bar
+    history.pushState(null,null,url);
 }
 function formatTime(seconds){
     var time = Math.round(seconds);
