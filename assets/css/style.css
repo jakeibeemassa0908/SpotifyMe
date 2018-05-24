@@ -388,6 +388,29 @@ html, body {
         text-align: center;
     }
 
+    .searchContainer{
+        background-color:#242424;
+        padding: 20px 28px;
+    }
+
+    .searchContainer h4{
+        margin:0;
+        font-weight:300;
+    }
+
+    .searchContainer .searchInput{
+        width: 100%;
+        background-color: transparent;
+        border:none;
+        color: #fff;
+        font-weight: 700;
+        font-size: 62px;
+    }
+
     [role = "link"]{
         cursor: pointer;
+    }
+
+    input:focus{
+        outline: none;
     }
