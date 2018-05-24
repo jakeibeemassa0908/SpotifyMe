@@ -1,11 +1,21 @@
 var currentPlaylist = [];
 var shufflePlaylist = [];
+var temporaryPlaylist = [];
 var audioElement;
 var mouseDown = false;
 var currentIndex = 0;
 var repeat = false;
 var shuffle = false;
+var userLoggedIn;
 
+function openPage(url){
+    if(url.indexOf("?")==-1){
+        url = url+"?";
+    }
+    //changes uknown characters to their URL equivalent
+    var encodeUrl = encodeURI(url+"&userLoggedIn=" + userLoggedIn);
+    $("#mainContent").load(encodeUrl);
+}
 function formatTime(seconds){
     var time = Math.round(seconds);
     var minutes = Math.floor(time/60); //Rounds down
